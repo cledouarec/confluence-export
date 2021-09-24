@@ -1,0 +1,12 @@
+{
+  "Server": {
+    "Confluence": "https://my.confluence.server.com"
+  },
+  "Pages to export": {
+    "<Space Key 1>": "Page title 1",
+    "<Space Key 2>": [
+      "Page title 1", 
+      "Page title 2"
+    ]
+  }
+}
