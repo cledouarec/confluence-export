@@ -1,7 +1,7 @@
 # Confluence exporter
 
-[![Lint](https://github.com/cledouarec/confluence-export/actions/workflows/lint.yml/badge.svg)](https://github.com/cledouarec/jira2confluence-gantt/actions/workflows/lint.yml)
-[![Unit tests](https://github.com/cledouarec/confluence-export/actions/workflows/test.yml/badge.svg)](https://github.com/cledouarec/jira2confluence-gantt/actions/workflows/test.yml)
+[![Lint](https://github.com/cledouarec/confluence-export/actions/workflows/lint.yaml/badge.svg)](https://github.com/cledouarec/confluence-export/actions/workflows/lint.yaml)
+[![Unit tests](https://github.com/cledouarec/confluence-export/actions/workflows/test.yaml/badge.svg)](https://github.com/cledouarec/confluence-export/actions/workflows/test.yaml)
 
 **Table of Contents**
 * [Overview](#Overview)
@@ -21,6 +21,16 @@ support others formats like :
 - Markdown
 
 ## Installation
+
+### From PyPI (Recommended)
+
+You can install the exporter easily with the following command or insert into
+your requirements file :
+```
+pip install confluence-exporter
+```
+
+### From sources
 
 It is recommended to use a virtual environment :
 ```
