@@ -84,15 +84,15 @@ def main() -> None:
         parser.print_usage()
         return
 
-    # Get configuration from JSON/YAML file
-    config = load_config(args.config)
-    if args.verbose:
-        config.dump()
-
     if args.atlassian_user is None:
         args.atlassian_user = str(input("Enter login for Atlassian :\n"))
     if args.atlassian_password is None:
         args.atlassian_password = _input_password()
+
+    # Get configuration from JSON/YAML file
+    config = load_config(args.config)
+    if args.verbose:
+        config.dump()
 
     confluence_client = ConfluenceClient(
         config.confluence,
