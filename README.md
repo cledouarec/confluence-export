@@ -69,20 +69,14 @@ The full list of arguments supported can be displayed with the following
 helper :
 ```
 ./confluence-export.exe -h
-usage: confluence-export [-h] [-v] [--user ATLASSIAN_USER]
-                         [--password ATLASSIAN_PASSWORD]
-                         [config.yaml]
+usage: confluence-export [-h] [-v] [config.yaml]
 
 positional arguments:
-  config.yaml           Configuration file
+  config.yaml    Configuration file
 
-optional arguments:
-  -h, --help            show this help message and exit
-  -v, --verbose         Verbose mode
-  --user ATLASSIAN_USER
-                        Define the user to connect to Atlassian server
-  --password ATLASSIAN_PASSWORD
-                        Define the password to connect to Atlassian server
+options:
+  -h, --help     show this help message and exit
+  -v, --verbose  Verbose mode
 ```
 
 ## Configuration
@@ -125,8 +119,13 @@ https://my_confluence_url.com/display/<Space key>/...
 ### Server configuration
 
 The `Server` node will configure the URL of the Confluence server.
-For the moment, only the username/password authentication is supported but only
-in the command line for security reason.
+For the moment, only the username/token authentication is supported.
+The credentials could be defined with environment variables or `.env` file.
+
+```
+ATLASSIAN_USER=<your login>
+ATLASSIAN_TOKEN=<your token>
+```
 
 **_In Yaml :_**
 ```yaml

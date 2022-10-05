@@ -6,24 +6,12 @@ Main entry point to extract Confluence pages.
 
 import argparse
 import logging
-import subprocess
+import os
 import sys
+from dotenv import load_dotenv
 from .config import load_config
 from .confluenceclient import ConfluenceClient
 from .export import export_all_pages
-
-
-def _input_password() -> str:
-    """
-    Get password input by masking characters.
-    Similar to getpass() but works with cygwin.
-    """
-    sys.stdout.write("Password :\n")
-    sys.stdout.flush()
-    subprocess.check_call(["stty", "-echo"])
-    password = input()
-    subprocess.check_call(["stty", "echo"])
-    return password
 
 
 def _create_argument_parser() -> argparse.ArgumentParser:
@@ -44,18 +32,6 @@ def _create_argument_parser() -> argparse.ArgumentParser:
         help="Configuration file",
         nargs="?",
         metavar="config.yaml",
-    )
-    parser.add_argument(
-        "--user",
-        action="store",
-        help="Define the user to connect to Atlassian server",
-        dest="atlassian_user",
-    )
-    parser.add_argument(
-        "--password",
-        action="store",
-        help="Define the password to connect to Atlassian server",
-        dest="atlassian_password",
     )
     return parser
 
@@ -84,20 +60,18 @@ def main() -> None:
         parser.print_usage()
         return
 
-    if args.atlassian_user is None:
-        args.atlassian_user = str(input("Enter login for Atlassian :\n"))
-    if args.atlassian_password is None:
-        args.atlassian_password = _input_password()
-
     # Get configuration from JSON/YAML file
     config = load_config(args.config)
     if args.verbose:
         config.dump()
 
+    # Retrieve Atlassian secrets from .env or environment variables
+    load_dotenv()
+
     confluence_client = ConfluenceClient(
         config.confluence,
-        args.atlassian_user,
-        args.atlassian_password,
+        os.environ["ATLASSIAN_USER"],
+        os.environ["ATLASSIAN_TOKEN"],
     )
 
     export_all_pages(confluence_client, config)
