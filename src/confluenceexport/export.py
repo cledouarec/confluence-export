@@ -8,8 +8,7 @@ from enum import Enum, unique
 import logging
 import tempfile
 
-from PyPDF2.merger import PdfFileMerger
-from PyPDF2.pdf import PdfFileReader
+from PyPDF2 import PdfMerger
 from .config import Config
 from .confluenceclient import ConfluenceClient
 
@@ -92,7 +91,7 @@ class PdfExport(ExportEngine):
         """
         logger.info("Start Confluence pages export in Pdf format")
 
-        merger = PdfFileMerger()
+        merger = PdfMerger()
         for space, titles in self._config.pages_to_export.items():
             for title in titles:
                 documentation = self._confluence_client.export_page_in_pdf(
@@ -100,7 +99,7 @@ class PdfExport(ExportEngine):
                 )
                 with tempfile.TemporaryFile() as documentation_file:
                     documentation_file.write(documentation)
-                    merger.append(PdfFileReader(documentation_file))
+                    merger.append(documentation_file)
         merger.write(self._filename_destination)
         merger.close()
 
