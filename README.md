@@ -46,7 +46,7 @@ For the developers, it is useful to install extra tools like :
 
 These tools can be installed with the following command :
 ```
-pip install .[dev]
+pip install '.[dev]'
 ```
 The Git hooks can be installed with :
 ```
