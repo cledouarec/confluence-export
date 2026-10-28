@@ -68,7 +68,7 @@ command :
 The full list of arguments supported can be displayed with the following
 helper :
 ```
-./confluence-export.exe -h
+./confluence-export -h
 usage: confluence-export [-h] [-v] [config.yaml]
 
 positional arguments:
