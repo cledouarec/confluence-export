@@ -1,8 +1,6 @@
 #! python3
 
-"""
-Main entry point to extract Confluence pages.
-"""
+"""Main entry point to extract Confluence pages."""
 
 import argparse
 import logging
@@ -15,8 +13,10 @@ from .export import export_all_pages
 
 
 def _create_argument_parser() -> argparse.ArgumentParser:
-    """
-    Create the list of arguments supported and return the parser.
+    """Create the list of arguments supported and return the parser.
+
+    Returns:
+        Parser of the command line arguments.
     """
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -37,9 +37,7 @@ def _create_argument_parser() -> argparse.ArgumentParser:
 
 
 def main() -> None:
-    """
-    Entry point of Confluence extractor script.
-    """
+    """Entry point of Confluence extractor script."""
     # Parse command line
     parser = _create_argument_parser()
     args = parser.parse_args()

@@ -1,8 +1,6 @@
 #! python3
 
-"""
-Manage configuration file.
-"""
+"""Manage configuration file."""
 
 import json
 import logging
@@ -16,15 +14,13 @@ logger = logging.getLogger()
 
 
 class Config:
-    """
-    This class is used to manage configuration.
-    """
+    """This class is used to manage configuration."""
 
     def __init__(self, config: dict):
-        """
-        Constructs the configuration from dictionary.
+        """Constructs the configuration from dictionary.
 
-        :param config: Configuration dictionary.
+        Args:
+            config: Configuration dictionary.
         """
         logger.debug("Create configuration")
 
@@ -41,12 +37,13 @@ class Config:
 
     @staticmethod
     def _check_config(config: dict) -> None:
-        """
-        Check configuration, update with default values for optional fields or
-        raise an error for mandatory fields.
+        """Check that the configuration contains all mandatory fields.
 
-        :param config: Configuration dictionary.
-        :raises ConfluenceExportError: If configuration is invalid.
+        Args:
+            config: Configuration dictionary.
+
+        Raises:
+            ConfluenceExportError: If configuration is invalid.
         """
         if not keys_exists(config, "Server"):
             msg = "Missing Server node in configuration"
@@ -59,41 +56,31 @@ class Config:
             raise ConfluenceExportError(msg)
 
     def dump(self) -> None:
-        """
-        Dump the configuration.
-        """
+        """Dump the configuration."""
         print(self._config)
 
     @property
     def confluence(self) -> str:
-        """
-        Get Confluence server URL.
-
-        :return: Confluence server URL.
-        """
+        """Confluence server URL."""
         return self._config["Server"]["Confluence"]
 
     @property
     def pages_to_export(self) -> dict:
-        """
-        Get list of dictionary for all pages to export configuration.
-
-        :return: List of pages to export configuration.
-        """
+        """Pages to export, grouped by Confluence space."""
         return self._config["Pages to export"]
 
 
 class YamlConfig(Config):
-    """
-    This class is used to manage YAML configuration.
-    """
+    """This class is used to manage YAML configuration."""
 
     def __init__(self, yaml_config_file: str):
-        """
-        Constructs the configuration from YAML file.
+        """Constructs the configuration from YAML file.
 
-        :param yaml_config_file: YAML configuration file to parse.
-        :raises ConfluenceExportError: If configuration file is invalid.
+        Args:
+            yaml_config_file: YAML configuration file to parse.
+
+        Raises:
+            ConfluenceExportError: If configuration file is invalid.
         """
         logger.info("Parse YAML configuration from %s", yaml_config_file)
 
@@ -108,16 +95,16 @@ class YamlConfig(Config):
 
 
 class JsonConfig(Config):
-    """
-    This class is used to manage JSON configuration.
-    """
+    """This class is used to manage JSON configuration."""
 
     def __init__(self, json_config_file: str):
-        """
-        Constructs the configuration from JSON file.
+        """Constructs the configuration from JSON file.
 
-        :param json_config_file: JSON configuration file to parse.
-        :raises ConfluenceExportError: If configuration file is invalid.
+        Args:
+            json_config_file: JSON configuration file to parse.
+
+        Raises:
+            ConfluenceExportError: If configuration file is invalid.
         """
         logger.info("Parse JSON configuration from %s", json_config_file)
 
@@ -132,13 +119,17 @@ class JsonConfig(Config):
 
 
 def load_config(config_file: str) -> Config:
-    """
-    Loads the configuration file (JSON or YAML).
+    """Loads the configuration file (JSON or YAML).
 
-    :param config_file: Configuration file to parse.
-    :return: Configuration parsed.
-    :raises ConfluenceExportError: If configuration extension file is
-    unknown (.json, .yaml, .yml).
+    Args:
+        config_file: Configuration file to parse.
+
+    Returns:
+        Configuration parsed.
+
+    Raises:
+        ConfluenceExportError: If configuration extension file is unknown
+            (.json, .yaml, .yml).
     """
     config_type = pathlib.Path(config_file).suffix
     if config_type in [".yaml", ".yml"]:

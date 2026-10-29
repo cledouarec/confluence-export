@@ -1,8 +1,6 @@
 #! python3
 
-"""
-Extract pages from Confluence.
-"""
+"""Extract pages from Confluence."""
 
 from enum import Enum, unique
 import logging
@@ -20,9 +18,7 @@ logger = logging.getLogger()
 
 @unique
 class ExportFormat(Enum):
-    """
-    This class is used to enumerate all format used to export pages.
-    """
+    """This class is used to enumerate all format used to export pages."""
 
     #: Pdf extractor
     PDF = "Pdf"
@@ -32,16 +28,14 @@ class ExportFormat(Enum):
 
 
 class ExportEngine:
-    """
-    This class is used to export pages from Confluence.
-    """
+    """This class is used to export pages from Confluence."""
 
     def __init__(self, confluence_client: ConfluenceClient, config: Config):
-        """
-        Constructs the exporter object.
+        """Constructs the exporter object.
 
-        :param confluence_client: Confluence client.
-        :param config: Configuration to retrieve pages to export.
+        Args:
+            confluence_client: Confluence client.
+            config: Configuration to retrieve pages to export.
         """
         logger.debug("Create exporter")
 
@@ -54,15 +48,11 @@ class ExportEngine:
         logger.debug("Exporter created")
 
     def export(self) -> None:
-        """
-        Export the list of given page in Word.
-        """
+        """Export the list of given page in Word."""
 
 
 class PdfExport(ExportEngine):
-    """
-    This class is used to export pages from Confluence in XML format.
-    """
+    """This class is used to export pages from Confluence in XML format."""
 
     def __init__(
         self,
@@ -70,12 +60,12 @@ class PdfExport(ExportEngine):
         config: Config,
         filename_destination: str,
     ):
-        """
-        Constructs the exporter object.
+        """Constructs the exporter object.
 
-        :param confluence_client: Confluence client.
-        :param config: Configuration to retrieve pages to export.
-        :param filename_destination: Output Pdf filename.
+        Args:
+            confluence_client: Confluence client.
+            config: Configuration to retrieve pages to export.
+            filename_destination: Output Pdf filename.
         """
         logger.debug("Create Pdf exporter")
 
@@ -87,9 +77,7 @@ class PdfExport(ExportEngine):
         logger.debug("Pdf exporter created")
 
     def export(self) -> None:
-        """
-        Export the list of given page in PDF inside one Pdf.
-        """
+        """Export the list of given page in PDF inside one Pdf."""
         logger.info("Start Confluence pages export in Pdf format")
 
         merger = PdfMerger()
@@ -108,9 +96,7 @@ class PdfExport(ExportEngine):
 
 
 class WordExport(ExportEngine):
-    """
-    This class is used to export pages from Confluence in Word format.
-    """
+    """This class is used to export pages from Confluence in Word format."""
 
     def __init__(
         self,
@@ -118,12 +104,12 @@ class WordExport(ExportEngine):
         config: Config,
         filename_destination: str,
     ):
-        """
-        Constructs the exporter object.
+        """Constructs the exporter object.
 
-        :param confluence_client: Confluence client.
-        :param config: Configuration to retrieve pages to export.
-        :param filename_destination: Output Word filename.
+        Args:
+            confluence_client: Confluence client.
+            config: Configuration to retrieve pages to export.
+            filename_destination: Output Word filename.
         """
         logger.debug("Create Word exporter")
 
@@ -135,9 +121,7 @@ class WordExport(ExportEngine):
         logger.debug("Word exporter created")
 
     def export(self) -> None:
-        """
-        Export the list of given page in Word.
-        """
+        """Export the list of given page in Word."""
         logger.info("Start Confluence pages export in Word format")
 
         for space, titles in self._config.pages_to_export.items():
@@ -155,13 +139,17 @@ def _create_export_engine(
     confluence_client: ConfluenceClient,
     config: Config,
 ) -> ExportEngine:
-    """
-    Create the export engine depending of the format configured by the
-    `config`.
+    """Create the export engine for the format configured by `config`.
 
-    :param confluence_client: Confluence client to retrieve pages.
-    :param config: Configuration to retrieve export format.
-    :return: New extractor engine created.
+    Args:
+        confluence_client: Confluence client to retrieve pages.
+        config: Configuration to retrieve export format.
+
+    Returns:
+        New extractor engine created.
+
+    Raises:
+        ConfluenceExportError: If export format is invalid.
     """
     # Must be integrated in Config
     chart_engine = ExportFormat.PDF
@@ -179,11 +167,11 @@ def export_all_pages(
     confluence_client: ConfluenceClient,
     config: Config,
 ) -> None:
-    """
-    Export all pages from Confluence.
+    """Export all pages from Confluence.
 
-    :param confluence_client: Confluence client to get pages.
-    :param config: Global configuration.
+    Args:
+        confluence_client: Confluence client to get pages.
+        config: Global configuration.
     """
     logger.info("Export pages from Confluence")
 

@@ -1,8 +1,6 @@
 #! python3
 
-"""
-Client to communicate with Confluence.
-"""
+"""Client to communicate with Confluence."""
 
 import logging
 from atlassian import Confluence
@@ -13,9 +11,7 @@ logger = logging.getLogger()
 
 
 class ConfluenceClient:
-    """
-    This class is used to interfacing Confluence server.
-    """
+    """This class is used to interfacing Confluence server."""
 
     def __init__(
         self,
@@ -23,14 +19,15 @@ class ConfluenceClient:
         confluence_username: str,
         confluence_password: str,
     ):
-        """
-        Constructs the Confluence client.
+        """Constructs the Confluence client.
 
-        :param confluence_url: URL to connect to Confluence.
-        :param confluence_username: Username to connect to Confluence.
-        :param confluence_password: Password to connect to Confluence.
-        :raises ConfluenceExportError: If URL, username or password are
-        invalids.
+        Args:
+            confluence_url: URL to connect to Confluence.
+            confluence_username: Username to connect to Confluence.
+            confluence_password: Password to connect to Confluence.
+
+        Raises:
+            ConfluenceExportError: If URL, username or password are invalids.
         """
         logger.debug("Create Confluence client")
 
@@ -72,15 +69,19 @@ class ConfluenceClient:
         title: str,
         message: str,
     ) -> None:
-        """
-        Add new page in Confluence in the given `space`. The new page will be
-        located under the `parent_page` and will have the given `title` and
-        content `message` in Wiki markup format.
+        """Add new page in Confluence in the given `space`.
 
-        :param space: Confluence space.
-        :param parent_page: Name of the parent page.
-        :param title: Page title.
-        :param message: Page message.
+        The new page will be located under the `parent_page` and will have the
+        given `title` and content `message` in Wiki markup format.
+
+        Args:
+            space: Confluence space.
+            parent_page: Name of the parent page.
+            title: Page title.
+            message: Page message.
+
+        Raises:
+            ConfluenceExportError: If parent page is not found.
         """
         logger.debug("Create new page")
 
@@ -96,13 +97,17 @@ class ConfluenceClient:
         logger.debug("New page created")
 
     def export_page_in_pdf(self, space: str, title: str) -> str:
-        """
-        Export page from Confluence in Pdf.
+        """Export page from Confluence in Pdf.
 
-        :param space: Confluence space.
-        :param title: Page title.
-        :return: Page content in Pdf format.
-        :raises ConfluenceExportError: If page is not found.
+        Args:
+            space: Confluence space.
+            title: Page title.
+
+        Returns:
+            Page content in Pdf format.
+
+        Raises:
+            ConfluenceExportError: If page is not found.
         """
         logger.debug("Export page in Pdf")
 
@@ -117,13 +122,17 @@ class ConfluenceClient:
         return page
 
     def export_page_in_word(self, space: str, title: str) -> str:
-        """
-        Export page from Confluence in Word.
+        """Export page from Confluence in Word.
 
-        :param space: Confluence space.
-        :param title: Page title.
-        :return: Page content in Word format.
-        :raises ConfluenceExportError: If page is not found.
+        Args:
+            space: Confluence space.
+            title: Page title.
+
+        Returns:
+            Page content in Word format.
+
+        Raises:
+            ConfluenceExportError: If page is not found.
         """
         logger.debug("Export page in Word")
 

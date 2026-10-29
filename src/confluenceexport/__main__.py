@@ -1,8 +1,6 @@
 #! python3
 
-"""
-Main script entry point to extract Confluence pages.
-"""
+"""Main script entry point to extract Confluence pages."""
 
 from confluenceexport.cli import main
 
