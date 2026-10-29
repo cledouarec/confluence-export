@@ -32,29 +32,26 @@ pip install confluence-exporter
 
 ### From sources
 
-It is recommended to use a virtual environment :
+The project is managed with [uv](https://docs.astral.sh/uv/). To install the
+module and the main script in a virtual environment, simply do :
 ```
-python -m venv venv
-```
-To install the module and the main script, simply do :
-```
-pip install .
+uv sync --no-dev
 ```
 For the developers, it is useful to install extra tools like :
 * [pre-commit](https://pre-commit.com)
 * [pytest](http://docs.pytest.org)
 
-These tools can be installed with the following command :
+These tools are installed by default with the following command :
 ```
-pip install '.[dev]'
+uv sync
 ```
 The Git hooks can be installed with :
 ```
-pre-commit install
+uv run pre-commit install
 ```
 The hooks can be run manually at any time :
 ```
-pre-commit run --all-file
+uv run pre-commit run --all-file
 ```
 
 ## Usage
