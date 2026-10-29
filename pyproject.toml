@@ -32,10 +32,9 @@ confluence-export = "confluenceexport.cli:main"
 [dependency-groups]
 dev = [
     "coverage",
-    "pre-commit",
-    "pylint",
     "pytest",
     "pytest-cov",
+    "ruff",
 ]
 
 [build-system]
@@ -46,21 +45,23 @@ build-backend = "uv_build"
 module-name = "confluenceexport"
 source-include = ["tests/**"]
 
-[tool.black]
+[tool.ruff]
 line-length = 79
-include = '\.pyi?$'
-exclude = '''
-/(
-    \.eggs
-  | \.git
-  | \.hg
-  | \.mypy_cache
-  | \.tox
-  | \.venv
-  | _build
-  | buck-out
-  | build
-  | dist
-  | venv
-)/
-'''
+
+[tool.ruff.format]
+docstring-code-format = true
+docstring-code-line-length = 79
+
+[tool.ruff.lint]
+preview = true
+select = ["ALL"]
+ignore = [
+    "CPY",                     # copyright headers
+    "missing-trailing-comma",  # conflicts with the formatter
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["assert", "implicit-namespace-package"]
