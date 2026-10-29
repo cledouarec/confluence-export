@@ -38,6 +38,8 @@ module and the main script in a virtual environment, simply do :
 uv sync --no-dev
 ```
 For the developers, it is useful to install extra tools like :
+* [Commitizen](https://commitizen-tools.github.io/commitizen/)
+* [pre-commit](https://pre-commit.com)
 * [Ruff](https://docs.astral.sh/ruff/)
 * [pytest](http://docs.pytest.org)
 
@@ -49,6 +51,10 @@ The code can be linted and formatted at any time :
 ```
 uv run ruff check
 uv run ruff format
+```
+The Git hook checking the commit messages can be installed with :
+```
+uv run pre-commit install
 ```
 
 ## Usage

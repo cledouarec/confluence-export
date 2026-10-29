@@ -31,7 +31,9 @@ confluence-export = "confluenceexport.cli:main"
 
 [dependency-groups]
 dev = [
+    "commitizen",
     "coverage",
+    "pre-commit",
     "pytest",
     "pytest-cov",
     "ruff",
@@ -43,7 +45,24 @@ build-backend = "uv_build"
 
 [tool.uv.build-backend]
 module-name = "confluenceexport"
-source-include = ["tests/**"]
+source-include = ["CHANGELOG.md", "tests/**"]
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+version_provider = "uv"
+update_changelog_on_bump = true
+style = [
+    ["qmark", "fg:#ff9d00 bold"],
+    ["question", "bold"],
+    ["answer", "fg:#ff9d00 bold"],
+    ["pointer", "fg:#ff9d00 bold"],
+    ["highlighted", "fg:#ff9d00 bold"],
+    ["selected", "fg:#cc5454"],
+    ["separator", "fg:#cc5454"],
+    ["instruction", ""],
+    ["text", ""],
+    ["disabled", "fg:#858585 italic"]
+]
 
 [tool.ruff]
 line-length = 79
