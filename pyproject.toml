@@ -1,6 +1,6 @@
 [project]
 name = "confluence-exporter"
-version = "0.2.0"
+version = "0.2.1"
 description = "Export Confluence page and convert to others formats"
 readme = "README.md"
 authors = [
