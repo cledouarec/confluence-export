@@ -96,9 +96,10 @@ example `feat(config)!: <short summary>`.
 
 There is no need to update the [CHANGELOG](CHANGELOG.md) file.
 
-The changelog is updated automatically by the GitHub actions when the commits
-are pushed on `main`. They also bump the version, create the release on GitHub
-and publish the package on PyPI. The new version depends on the commit types :
+When commits are pushed on `main`, a GitHub action opens or updates a pull
+request which bumps the version and updates the changelog. Once this pull
+request is merged, the new version is tagged, released on GitHub and published
+on PyPI. The new version depends on the commit types :
 * **feat**: minor version
 * **fix**, **perf** and **refactor**: patch version
 * breaking change: major version
