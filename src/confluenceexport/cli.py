@@ -1,12 +1,12 @@
-#! python3
-
 """Main entry point to extract Confluence pages."""
 
 import argparse
 import logging
 import os
 import sys
+
 from dotenv import load_dotenv
+
 from .config import load_config
 from .confluenceclient import ConfluenceClient
 from .export import export_all_pages
@@ -42,10 +42,7 @@ def main() -> None:
     parser = _create_argument_parser()
     args = parser.parse_args()
 
-    if args.verbose:
-        log_level = logging.DEBUG
-    else:
-        log_level = logging.INFO
+    log_level = logging.DEBUG if args.verbose else logging.INFO
 
     # Create logger
     logging.basicConfig(

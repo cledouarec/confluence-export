@@ -1,8 +1,7 @@
-#! python3
-
 """Unit tests for utils."""
 
 import pytest
+
 from confluenceexport.utils import keys_exists
 
 

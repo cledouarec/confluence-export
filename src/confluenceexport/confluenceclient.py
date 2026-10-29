@@ -1,9 +1,9 @@
-#! python3
-
 """Client to communicate with Confluence."""
 
 import logging
+
 from atlassian import Confluence
+
 from .errors import ConfluenceExportError
 
 #: Create logger for this file.
@@ -18,7 +18,7 @@ class ConfluenceClient:
         confluence_url: str,
         confluence_username: str,
         confluence_password: str,
-    ):
+    ) -> None:
         """Constructs the Confluence client.
 
         Args:

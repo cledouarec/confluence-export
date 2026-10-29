@@ -1,11 +1,11 @@
-#! python3
-
 """Manage configuration file."""
 
 import json
 import logging
 import pathlib
+
 import yaml
+
 from .errors import ConfluenceExportError
 from .utils import force_list, keys_exists
 
@@ -16,7 +16,7 @@ logger = logging.getLogger()
 class Config:
     """This class is used to manage configuration."""
 
-    def __init__(self, config: dict):
+    def __init__(self, config: dict) -> None:
         """Constructs the configuration from dictionary.
 
         Args:
@@ -57,7 +57,7 @@ class Config:
 
     def dump(self) -> None:
         """Dump the configuration."""
-        print(self._config)
+        logger.info("Configuration: %s", self._config)
 
     @property
     def confluence(self) -> str:
@@ -73,7 +73,7 @@ class Config:
 class YamlConfig(Config):
     """This class is used to manage YAML configuration."""
 
-    def __init__(self, yaml_config_file: str):
+    def __init__(self, yaml_config_file: str) -> None:
         """Constructs the configuration from YAML file.
 
         Args:
@@ -85,7 +85,8 @@ class YamlConfig(Config):
         logger.info("Parse YAML configuration from %s", yaml_config_file)
 
         try:
-            with open(yaml_config_file, encoding="utf-8") as yaml_config:
+            config_path = pathlib.Path(yaml_config_file)
+            with config_path.open(encoding="utf-8") as yaml_config:
                 super().__init__(yaml.safe_load(yaml_config))
         except Exception as error:
             msg = "Failed to parse YAML configuration"
@@ -97,7 +98,7 @@ class YamlConfig(Config):
 class JsonConfig(Config):
     """This class is used to manage JSON configuration."""
 
-    def __init__(self, json_config_file: str):
+    def __init__(self, json_config_file: str) -> None:
         """Constructs the configuration from JSON file.
 
         Args:
@@ -109,7 +110,8 @@ class JsonConfig(Config):
         logger.info("Parse JSON configuration from %s", json_config_file)
 
         try:
-            with open(json_config_file, encoding="utf-8") as json_config:
+            config_path = pathlib.Path(json_config_file)
+            with config_path.open(encoding="utf-8") as json_config:
                 super().__init__(json.load(json_config))
         except Exception as error:
             msg = "Failed to parse JSON configuration"
@@ -132,7 +134,7 @@ def load_config(config_file: str) -> Config:
             (.json, .yaml, .yml).
     """
     config_type = pathlib.Path(config_file).suffix
-    if config_type in [".yaml", ".yml"]:
+    if config_type in {".yaml", ".yml"}:
         return YamlConfig(config_file)
     if config_type == ".json":
         return JsonConfig(config_file)

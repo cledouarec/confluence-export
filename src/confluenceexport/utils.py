@@ -1,11 +1,7 @@
-#! python3
-
 """Utilities functions."""
 
-from typing import Any
 
-
-def force_list(value: Any) -> list:
+def force_list(value: object) -> list:
     """Convert `value` to list or return `value` if it is already a list.
 
     Args:
@@ -17,7 +13,7 @@ def force_list(value: Any) -> list:
     return list(value) if isinstance(value, (list, tuple)) else [value]
 
 
-def keys_exists(element: dict, *keys) -> bool:
+def keys_exists(element: dict, *keys: str) -> bool:
     """Check if *keys (nested) exists in `element` (dict).
 
     Args:
@@ -38,10 +34,10 @@ def keys_exists(element: dict, *keys) -> bool:
         msg = "keys_exists() expects at least two arguments, one given."
         raise AttributeError(msg)
 
-    _element = element
-    for key in keys:
-        try:
-            _element = _element[key]
-        except KeyError:
-            return False
+    current = element
+    try:
+        for key in keys:
+            current = current[key]
+    except KeyError:
+        return False
     return True
