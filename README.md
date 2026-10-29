@@ -8,6 +8,7 @@
 * [Installation](#Installation)
 * [Usage](#Usage)
 * [Configuration](#Configuration)
+* [Contribution](#Contribution)
 
 ## Overview
 
@@ -46,11 +47,6 @@ For the developers, it is useful to install extra tools like :
 These tools are installed by default with the following command :
 ```
 uv sync
-```
-The code can be linted and formatted at any time :
-```
-uv run ruff check
-uv run ruff format
 ```
 The Git hook checking the commit messages can be installed with :
 ```
@@ -188,3 +184,11 @@ Define the space key that include the pages to export. The value associated
 could be a string or a list of string corresponding to the pages title to
 export.  
 **It is a mandatory field.**
+
+## Contribution
+
+Unless you explicitly state otherwise, any contribution intentionally submitted
+for inclusion in the work by you, shall be as defined in the Apache-2.0 license
+without any additional terms or conditions.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md).
