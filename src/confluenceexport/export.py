@@ -11,6 +11,7 @@ import tempfile
 from PyPDF2 import PdfMerger
 from .config import Config
 from .confluenceclient import ConfluenceClient
+from .errors import ConfluenceExportError
 
 
 #: Create logger for this file.
@@ -170,7 +171,8 @@ def _create_export_engine(
         return PdfExport(confluence_client, config, filename_destination)
     if chart_engine == ExportFormat.WORD:
         return WordExport(confluence_client, config, filename_destination)
-    raise Exception("Invalid export format")
+    msg = "Invalid export format"
+    raise ConfluenceExportError(msg)
 
 
 def export_all_pages(

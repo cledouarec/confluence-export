@@ -6,6 +6,7 @@ Client to communicate with Confluence.
 
 import logging
 from atlassian import Confluence
+from .errors import ConfluenceExportError
 
 #: Create logger for this file.
 logger = logging.getLogger()
@@ -28,16 +29,20 @@ class ConfluenceClient:
         :param confluence_url: URL to connect to Confluence.
         :param confluence_username: Username to connect to Confluence.
         :param confluence_password: Password to connect to Confluence.
-        :raises Exception: If URL, username or password are invalids.
+        :raises ConfluenceExportError: If URL, username or password are
+        invalids.
         """
         logger.debug("Create Confluence client")
 
         if not confluence_url:
-            raise Exception("Confluence URL is invalid")
+            msg = "Confluence URL is invalid"
+            raise ConfluenceExportError(msg)
         if not confluence_username:
-            raise Exception("Confluence username is invalid")
+            msg = "Confluence username is invalid"
+            raise ConfluenceExportError(msg)
         if not confluence_password:
-            raise Exception("Confluence password is invalid")
+            msg = "Confluence password is invalid"
+            raise ConfluenceExportError(msg)
         try:
             # Fix API version for cloud to avoid issue
             if (
@@ -55,7 +60,8 @@ class ConfluenceClient:
                 api_version=api_version,
             )
         except Exception as error:
-            raise Exception("Failed to create Confluence client") from error
+            msg = "Failed to create Confluence client"
+            raise ConfluenceExportError(msg) from error
 
         logger.debug("Confluence client created")
 
@@ -79,7 +85,8 @@ class ConfluenceClient:
         logger.debug("Create new page")
 
         if not self.__confluence_client.page_exists(space, parent_page):
-            raise Exception("Parent page not found")
+            msg = "Parent page not found"
+            raise ConfluenceExportError(msg)
         parent_id = self.__confluence_client.get_page_id(space, parent_page)
 
         self.__confluence_client.update_or_create(
@@ -95,7 +102,7 @@ class ConfluenceClient:
         :param space: Confluence space.
         :param title: Page title.
         :return: Page content in Pdf format.
-        :raises Exception: If page is not found.
+        :raises ConfluenceExportError: If page is not found.
         """
         logger.debug("Export page in Pdf")
 
@@ -103,9 +110,8 @@ class ConfluenceClient:
             page_id = self.__confluence_client.get_page_id(space, title)
             page = self.__confluence_client.get_page_as_pdf(page_id)
         except Exception as error:
-            raise Exception(
-                "Failed to export Confluence page in Pdf"
-            ) from error
+            msg = "Failed to export Confluence page in Pdf"
+            raise ConfluenceExportError(msg) from error
 
         logger.debug("Page exported in Pdf")
         return page
@@ -117,7 +123,7 @@ class ConfluenceClient:
         :param space: Confluence space.
         :param title: Page title.
         :return: Page content in Word format.
-        :raises Exception: If page is not found.
+        :raises ConfluenceExportError: If page is not found.
         """
         logger.debug("Export page in Word")
 
@@ -125,9 +131,8 @@ class ConfluenceClient:
             page_id = self.__confluence_client.get_page_id(space, title)
             page = self.__confluence_client.get_page_as_word(page_id)
         except Exception as error:
-            raise Exception(
-                "Failed to export Confluence page in Word"
-            ) from error
+            msg = "Failed to export Confluence page in Word"
+            raise ConfluenceExportError(msg) from error
 
         logger.debug("Page exported in Word")
         return page

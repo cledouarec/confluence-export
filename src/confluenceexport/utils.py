@@ -23,14 +23,15 @@ def keys_exists(element: dict, *keys) -> bool:
     :param element: Dictionary to check.
     :param keys: Dictionary keys to search.
     :return: True if all nested keys found or False in other cases.
-    :raises Exception: if input element or keys are invalid.
+    :raises TypeError: If input element is not a dictionary.
+    :raises AttributeError: If no keys are given.
     """
     if not isinstance(element, dict):
-        raise AttributeError("keys_exists() expects dict as first argument.")
+        msg = "keys_exists() expects dict as first argument."
+        raise TypeError(msg)
     if len(keys) == 0:
-        raise AttributeError(
-            "keys_exists() expects at least two arguments, one given."
-        )
+        msg = "keys_exists() expects at least two arguments, one given."
+        raise AttributeError(msg)
 
     _element = element
     for key in keys:
