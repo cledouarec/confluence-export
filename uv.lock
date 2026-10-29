@@ -329,10 +329,10 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "atlassian-python-api" },
-    { name = "pypdf2" },
-    { name = "python-dotenv" },
-    { name = "pyyaml" },
+    { name = "atlassian-python-api", specifier = ">=3.28,<5" },
+    { name = "pypdf2", specifier = ">=2.11,<4" },
+    { name = "python-dotenv", specifier = ">=0.21,<2" },
+    { name = "pyyaml", specifier = ">=6.0,<7" },
 ]
 
 [package.metadata.requires-dev]
