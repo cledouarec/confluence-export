@@ -12,7 +12,7 @@ def test_keys_exists_without_dict_type() -> None:
     """
     Key exists function called without a dictionary must raise an exception.
     """
-    with pytest.raises(Exception):
+    with pytest.raises(TypeError):
         keys_exists(None, "Key")
 
 
@@ -20,7 +20,7 @@ def test_keys_exists_without_keys() -> None:
     """
     Key exists function called without keys must raise an exception.
     """
-    with pytest.raises(Exception):
+    with pytest.raises(AttributeError):
         keys_exists({})
 
 

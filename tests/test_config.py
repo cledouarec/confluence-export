@@ -11,6 +11,7 @@ from confluenceexport.config import (
     YamlConfig,
     load_config,
 )
+from confluenceexport.errors import ConfluenceExportError
 
 
 @pytest.fixture(scope="module")
@@ -28,7 +29,7 @@ def test_load_config_with_invalid_file_extension() -> None:
     """
     Loads config with unsupported file extension must raise an exception.
     """
-    with pytest.raises(Exception):
+    with pytest.raises(ConfluenceExportError):
         load_config("config.test")
 
 
@@ -36,7 +37,7 @@ def test_yaml_config_with_invalid_file() -> None:
     """
     Read YAML config without file name must raise an exception.
     """
-    with pytest.raises(Exception):
+    with pytest.raises(ConfluenceExportError):
         YamlConfig("")
 
 
@@ -44,7 +45,7 @@ def test_json_config_with_invalid_file() -> None:
     """
     Read JSON config without file name must raise an exception.
     """
-    with pytest.raises(Exception):
+    with pytest.raises(ConfluenceExportError):
         JsonConfig("")
 
 
@@ -68,7 +69,7 @@ def test_config_with_empty_config() -> None:
     """
     An empty config must raise an exception.
     """
-    with pytest.raises(Exception):
+    with pytest.raises(ConfluenceExportError):
         Config({})
 
 
@@ -88,7 +89,7 @@ def test_config_without_server_config(full_config) -> None:
     A config without Server node must raise an exception.
     """
     del full_config["Server"]
-    with pytest.raises(Exception):
+    with pytest.raises(ConfluenceExportError):
         Config(full_config)
 
 
@@ -97,7 +98,7 @@ def test_config_without_server_confluence_config(full_config) -> None:
     A config without Server/Confluence node must be created to None value.
     """
     del full_config["Server"]["Confluence"]
-    with pytest.raises(Exception):
+    with pytest.raises(ConfluenceExportError):
         Config(full_config)
 
 
@@ -114,5 +115,5 @@ def test_config_without_pages_export_config(full_config) -> None:
     A config without Pages export node must raise an exception.
     """
     del full_config["Pages to export"]
-    with pytest.raises(Exception):
+    with pytest.raises(ConfluenceExportError):
         Config(full_config)
