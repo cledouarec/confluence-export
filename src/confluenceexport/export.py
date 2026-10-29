@@ -1,16 +1,14 @@
-#! python3
-
 """Extract pages from Confluence."""
 
-from enum import Enum, unique
 import logging
 import tempfile
+from enum import Enum, unique
 
 from PyPDF2 import PdfMerger
+
 from .config import Config
 from .confluenceclient import ConfluenceClient
 from .errors import ConfluenceExportError
-
 
 #: Create logger for this file.
 logger = logging.getLogger()
@@ -30,7 +28,11 @@ class ExportFormat(Enum):
 class ExportEngine:
     """This class is used to export pages from Confluence."""
 
-    def __init__(self, confluence_client: ConfluenceClient, config: Config):
+    def __init__(
+        self,
+        confluence_client: ConfluenceClient,
+        config: Config,
+    ) -> None:
         """Constructs the exporter object.
 
         Args:
@@ -59,7 +61,7 @@ class PdfExport(ExportEngine):
         confluence_client: ConfluenceClient,
         config: Config,
         filename_destination: str,
-    ):
+    ) -> None:
         """Constructs the exporter object.
 
         Args:
@@ -103,7 +105,7 @@ class WordExport(ExportEngine):
         confluence_client: ConfluenceClient,
         config: Config,
         filename_destination: str,
-    ):
+    ) -> None:
         """Constructs the exporter object.
 
         Args:

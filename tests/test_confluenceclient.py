@@ -1,8 +1,7 @@
-#! python3
-
 """Unit tests for confluenceclient."""
 
 import pytest
+
 from confluenceexport.confluenceclient import ConfluenceClient
 from confluenceexport.errors import ConfluenceExportError
 
