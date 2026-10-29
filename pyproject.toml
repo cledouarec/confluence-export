@@ -1,8 +1,50 @@
+[project]
+name = "confluence-exporter"
+version = "0.2.0"
+description = "Export Confluence page and convert to others formats"
+readme = "README.md"
+authors = [
+    { name = "Christophe Le Douarec", email = "ledouarec@gmail.com" },
+]
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+keywords = ["confluence", "atlassian", "extractor"]
+classifiers = [
+    "Programming Language :: Python :: 3 :: Only",
+    "Operating System :: OS Independent",
+    "Environment :: Console",
+    "Topic :: Utilities",
+]
+requires-python = ">=3.9"
+dependencies = [
+    "atlassian-python-api",
+    "PyPDF2",
+    "python-dotenv",
+    "PyYAML",
+]
+
+[project.urls]
+Homepage = "https://github.com/cledouarec/confluence-export"
+
+[project.scripts]
+confluence-export = "confluenceexport.cli:main"
+
+[dependency-groups]
+dev = [
+    "coverage",
+    "pre-commit",
+    "pylint",
+    "pytest",
+    "pytest-cov",
+]
+
 [build-system]
-# These are the assumed default build requirements from pip:
-# https://pip.pypa.io/en/stable/reference/pip/#pep-517-and-518-support
-requires = ["setuptools>=42", "wheel"]
-build-backend = "setuptools.build_meta"
+requires = ["uv_build>=0.13.6,<0.14.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "confluenceexport"
+source-include = ["tests/**"]
 
 [tool.black]
 line-length = 79
