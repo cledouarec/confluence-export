@@ -38,20 +38,17 @@ module and the main script in a virtual environment, simply do :
 uv sync --no-dev
 ```
 For the developers, it is useful to install extra tools like :
-* [pre-commit](https://pre-commit.com)
+* [Ruff](https://docs.astral.sh/ruff/)
 * [pytest](http://docs.pytest.org)
 
 These tools are installed by default with the following command :
 ```
 uv sync
 ```
-The Git hooks can be installed with :
+The code can be linted and formatted at any time :
 ```
-uv run pre-commit install
-```
-The hooks can be run manually at any time :
-```
-uv run pre-commit run --all-file
+uv run ruff check
+uv run ruff format
 ```
 
 ## Usage
